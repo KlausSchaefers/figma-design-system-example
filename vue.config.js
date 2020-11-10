@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/project name/'
+  publicPath: '/figma-design-system-example/'
 }

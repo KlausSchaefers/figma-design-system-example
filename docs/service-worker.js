@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/project name/precache-manifest.25c41922718c43633c4aecf3074f697c.js"
+  "/figma-design-system-example/precache-manifest.d1f83aeb558f10d34a563730a3d437b2.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "figma-designlets"});
+workbox.core.setCacheNameDetails({prefix: "figma-low-code-design-system"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
