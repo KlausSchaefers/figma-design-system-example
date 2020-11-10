@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/figma-design-system-example/precache-manifest.d1f83aeb558f10d34a563730a3d437b2.js"
+  "/figma-design-system-example/precache-manifest.c1e2a6c72313cb195a98882ff2961211.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "figma-low-code-design-system"});

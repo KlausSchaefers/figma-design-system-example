@@ -11,7 +11,9 @@ Vue.config.productionTip = false
 
 async function init () {
   // for live debuging use Figma.createFigmaDesignlets(<FileID>, <AccessKey>)
-  await Figma.createFigmaDesignlets(design)
+  await Figma.createFigmaDesignlets(design, null, {
+    imageFolder: '/figma-design-system-example/img/'
+  })
   new Vue({
     router,
     render: h => h(App)

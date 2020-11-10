@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "59bb14ec1cf25df7093c",
+    "revision": "e9361092946df65b4f1d",
     "url": "/figma-design-system-example/css/app.c6f00bda.css"
   },
   {
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/figma-design-system-example/img/w10047.png"
   },
   {
-    "revision": "1e023664a0986b8d5ddacd6d4a49f38c",
+    "revision": "6cadd7386dcdae103df3f3e304e88fc8",
     "url": "/figma-design-system-example/index.html"
   },
   {
-    "revision": "59bb14ec1cf25df7093c",
-    "url": "/figma-design-system-example/js/app.d8db4369.js"
+    "revision": "e9361092946df65b4f1d",
+    "url": "/figma-design-system-example/js/app.81178852.js"
   },
   {
     "revision": "7ab82b1c1af4eb98b1e7",
