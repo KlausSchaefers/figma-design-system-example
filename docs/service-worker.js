@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.893d288c742fddf3ffe5f8cb6e47ba84.js"
+  "/project name/precache-manifest.25c41922718c43633c4aecf3074f697c.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "figma-designlets"});
