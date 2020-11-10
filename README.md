@@ -1,9 +1,11 @@
-# Figma-low-Code-Designlets-Example
+# Figma-low-Code Design System Example
 
 
-Figma-Low-Code is an OpenSource project, that allows to use **Figma** designs directly in **VUE.js** applications. The low code approach reduces drastically the hand-off time between designers and developers, reduces UI code and ensures that the Figma design stays the single source of truth. Thsi repository is an example for the Figma Designlet approach.
+[Figma-Low-Code](https://github.com/KlausSchaefers/figma-low-code) is an OpenSource project, that turns your **Figma** components into fully working **VUE** components. The low code approach reduces the hand-off between designers and developers, saves front-end code and ensures that the Figma design stays the **single source of truth**. Changes in the design, are instantly visible in your projects without changing a single line of code.
 
 ![The Figma-Low-Code plugin](assets/Logo.png "Figma-Low-Code plugin")
+
+This repository serves as an example. More information about Fima-Low-Code can be found in [Figma-Low-Code repository](https://github.com/KlausSchaefers/figma-low-code).
 
 # Development Guide
 
