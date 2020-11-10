@@ -1,100 +1,218 @@
-# Figma-Designlets
+# Figma-low-Code-Designlets-Example
 
 
-Figma-Low-Code is an OpenSource project, that allows to use **Figma** designs directly in **VUE.js** applications. Business logic and data is written as plain JavaScript and 'wired' through data- and method-binding to the visual design. The bindings are defined with the help of a Figma [plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code). The low code approach reduces drastically the hand-off time between designers and developers, reduces UI code and ensures that the Figma design stays the single source of truth.
+Figma-Low-Code is an OpenSource project, that allows to use **Figma** designs directly in **VUE.js** applications. The low code approach reduces drastically the hand-off time between designers and developers, reduces UI code and ensures that the Figma design stays the single source of truth. Thsi repository is an example for the Figma Designlet approach.
+
+
+# Development Guide
+
+First clone this repo or add the `vue-lwo-code` package via NPM.
 
 
 ```sh
-git clone https://github.com/KlausSchaefers/figma-designlets.git
+git clone https://github.com/KlausSchaefers/figma-designlets-example.git
+
+or
+
+npm install vue-low-code
 ```
+
 
 Afterwards, load all dependecies with the following command
 
-``` sh
+```sh
 npm install
 ```
 
 Finally start the server
 
-``` sh
+```sh
 npm run serve
 ```
 
+To use the full power of Figma-Low-Code it is advised to install the [plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code), which
+allows to define responsive behavior, inpput styles and data and method binding.
 
-Once done, open the 'src/views/Home.vue' and enter your figma file id and the access code. You can
-get the access code in your Figma settings [(Details)](https://www.figma.com/developers/api#access-tokens).
-The file id is the second last url parameter
+## Registering the design system
+The DesignLet mode allows to turn your design system into Vue components that can be used as normal components. DesignLets are not limited to
+simple components like buttons or text, but can also be compplex components like forms, dialogs and so on. The first step is
+to *globally* register the designlets before any template is parsed. The easiest way is to register the designlets in the `main.js`file:
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import './registerServiceWorker'
+import router from './router'
+import * as VueLowCode from 'vue-low-code'
+import figmaDesign from './views/figma-design-system.json'
+import quxDesign from './views/qux-design-system.json'
+
+Vue.config.productionTip = false
+
+/*
+ * Make sure the design is registered before the App is mounted
+ */
+async function init () {
+    // for live debuging use Figma.createFigmaDesignSystem(<FileID>, <AccessKey>)
+  await VueLowCode.createFigmaDesignSystem(figmaDesign)
+
+  new Vue({
+    router,
+    render: h => h(App)
+  }).$mount('#app')
+}
+
+init()
 
 ```
-https://www.figma.com/file/<FigmaFileId>/...
+
+You need to use your fileID and [API token](https://www.figma.com/developers/api#access-tokens) for the registration. Figma-Low-Code can now download the Figma design
+and transform it into the designlets. This is ideal for iterative development, when the design frequently changes. After every page reload, that design is updated. However,
+the Figma api is sometimes slow, so for production it is best to download the figma file and place it in the project. Downloading the file will improve performance and
+will also ensure your project does not break after changes in the Figma file.
+
+, or you can download the Figma design using the *download.js* script
+
+```bash
+node download.js <api token> <file id>
 ```
 
-Once you have entered the values, the Home.vue should look like:
 
+
+## Using the Low Code Design System
+
+Once the design system is registered, they can be used within any template in the application. Suppose there is primary button defined in the design system.
+This can be invoked be simple using a tag with the corresponding name. Please make sure that the design system names do not clash with standard HTML elements, or other
+components in your code base.
+
+```vue
+<PrimaryButton/>
+```
+
+For simple elements like boxes, rectangles or labels one can use the wrapped notion to replace the inner elements. An alternative is to use the label property
+
+```vue
+<PrimaryButton>Hello World</PrimaryButton>
+<PrimaryButton label="Hello World"/>
+```
+
+For input elements, also the v-model element works. In addtion a placeholder and options element is supported
+
+```vue
+<PrimaryField v-model="user.name" placeholder="Enter a name"/>
+<PrimaryDropDown v-model="user.job" :options="job" />
+...
+jobs = [
+  {label: 'Developer', value:'deverloper'},
+  {label: 'Designer', value:'designer'},
+]
+
+```
+
+
+For Varient Components, you need to use properties to select the desired component style:
+
+```vue
+   /*
+    * The type and state properties are defined in Figma.
+    */
+   <VarientButton type="Secondary" state="Out" />
+   <VarientButton type="Primary" state="Out" label="Secondary Hover"/>
+
+```
 
 
 ## Figma Plugin
 
-To use the advanced features such as data, method binding or input widgets, you must install the  [Figma-Low-Code plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code). The plugin has two main tab. The 'Low Code' tab allows you to set the basics, such as the element type, or the input and output data binding.
+To use the advanced low code features such as data & method binding or input widgets, you must install the  [Figma-Low-Code plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code).
+The plugin has two main tab. The 'Low Code' tab allows you to set the basics, such as the element type, or the input and output data binding.
 
 ![The Figma-Low-Code plugin](assets/PluginLowCode2.png "Figma-Low-Code plugin")
 
-The 'Style' tab allows you to define, if the element should be fixed width or height. By default Figma Low Code will assume hat the widget is responsive. Also, you can define hover styles for the fill, stroke and text color. For input elements focus styles can also be defined.
+The 'Style' tab allows you to define, if the element should be fixed width or height. By default Figma Low Code will assume hat the widget is
+responsive. Also, you can define hover styles for the fill, stroke and text color. For input elements focus styles can also be defined.
 
 ![The Figma-Low-Code plugin](assets/PluginStyle.png "Figma-Low-Code plugin")
 
-## Input Elements
+### Input Elements
 
-By default Figma-Low-Code renders all elements of the design as div, span and label elements. Often this is not enough, and you
-would like to allow the user to enter to. You can override the default rendering by specifying the desired element type, for instance
-text fields or password fields.
-To do so, you need to launch the Figma-Low-Code plugin and select an element. Once an element is selected, you can select from a list of
-widgets the desired element type.
+By default Figma-Low-Code renders all elements of the design as box-ish (div, label, span) elements. Often this is not enough, and you
+would like to allow the user to enter data. You can override the default rendering by specifying the desired element type, for instance
+text fields or password fields. To do so:
 
-## Data Binding
+1. Launch the Figma-Low-Code plugin
+2. Select an element.
+3. Select from a list of widgets type.
 
-Figma-Low-Code supports VUE data binding. You have to pass a v-model to the **Figma** component.
+The 'Smart Container' is a special widget that allows you to build dynamic elements such as checkboxes or data grid. Once selected,
+you can choose between two modes of operation:
 
-``` vue
-<Figma :figma="figmaFile" v-model="viewModel"/>
+1. **Repeat Children**: All elements contained in the elements will be repeated n-times based on the data binding, which has to point to a array. This widget is ideal to build lists
+of repeating items.
+2. **Toggle Children**: The visibility of the child widgets will be toggled on user clicks. For instance in a checkbox, the hook indicator would be shown after a click and hidden after a second click. For Varient Components the behavior is slightly different. In this case the system will toggle between the child components.
+
+
+A good example might be a checkbox, whcih can be toggled. The checkbox has two states, 'selected' abd 'unselected', and in addition a 'Primary' and 'Secondary' varient. The outer component is marked as a 'Smart Container' with 'Toggle Children'
+
+![Varient Components with child toggling](assets/VariantComponentExampleCheckbox.png "Toggling between component states")
+
+
+To use this component as an working checkbox in Vue, use the following snippet:
+
+```vue
+   /*
+    * The varient component has two children with the type == secondary.
+    * The component will toggle between them on user clicks
+    */
+   <VarientCheckBox type="Secondary" label="Tick me"/>
+
 ```
 
-You can specify the databinding with the help of the Figma-Low-Code plugin:
+### Data and Method Binding
 
-1. Launch the plugin
-2. Select the desired element.
-3. Select the 'Low Code Tab'
-4. Specify the name of the varibale, for instance 'user.name'.
+Figma-Low-Code Design Systems are not limited to simple components like buttons or text, but can also be compplex components like forms, dialogs and so on.
+Usually one has to use data and method binding ([Details](##define-data-binding-and-callbacks)) in this situations to populate the elements with data.
+The relevant (child) elements have to be wired to the right data and the right actions have to be defined. For instance in a login dialog, the email field needs to be
+wired to the `email` variable and the password field to the `password` variable. The button needs to get a method binding for the `login` method. When the
+user clicks in the button, and 'login' event will be fired, which can be used using the standard '@' notation. Please note, that when a component consist out of more than one shapes, it is not possible infer where the label text should be shown. One has to specify a magic data binding (`$label`). The wiring of the login dialog would look like
 
+![A complex designlet with data and method binding](assets/DesignletDataBinding.png "Data and Method binding for designlets")
 
-During runtime, the low-code component will update the viewModel and add the values entered by the user, e.g.
+The code would be
 
-``` js
-    viewModel: {
-        user: {
-          name: "Klaus"
-        }
-    }
-```
+```vue
+<LoginDialog v-model="loginData" label="Enter your credentials" @login="myLoginMethod">
 
-## Method Binding
+...
+loginData = {
+  email: '',
+  password: ''
+}
 
-In the Figma-Low-Code plugin you can define javascript callbacks for the elements. You can specify the databinding with the help of the Figma-Low-Code plugin:
+....
 
-1. Launch the plugin
-2. Select the desired element.
-3. Select the 'Low Code Tab'.
-4. Enter the name of the method taht should be called on the event (click or change are supported for now)
-
-
-During run time, the figma component will look for a method with the given name in the parent component (in the example  Home.vue). If the method exists, it will be called. The method will have the following signature:
-
-``` js
-myMethod (value, element, e) {
- ...
- return 'Screen2'
+myLoginMethod () {
+  // your code
 }
 ```
+
+
+# Background: Two ways of using Figma-Low-Code
+
+Figma-Low-Code provides two modes of operation.
+1. The first mode is the 'Full' low code mode. The Figma design is entirely rendered and wired to the
+business logic. The front-end developers will usually do little UI customization and  focus on backend connectivity and business logic.
+2. The second mode is the so called 'Design System' mode, which turns your design system into Vue components. The developers can simply use these as any other VUE component within their projects.
+
+![Vue-Low-Code architecture](assets/LowCodeModes.png "Vue-Low-Code support to modes of operations")
+
+The full mode will in general result to a faster development experience, however the developers have less control over the front end. The
+'Design System' mode speeds up development and helps to implement design systems. Please note, that both approaches will maintain the Figma or Quant-UX
+design as the single source of truth. Design channges will be instantly visible in the application.
+
+
+
+
 
 # Credits
 
