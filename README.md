@@ -3,6 +3,7 @@
 
 Figma-Low-Code is an OpenSource project, that allows to use **Figma** designs directly in **VUE.js** applications. The low code approach reduces drastically the hand-off time between designers and developers, reduces UI code and ensures that the Figma design stays the single source of truth. Thsi repository is an example for the Figma Designlet approach.
 
+![The Figma-Low-Code plugin](assets/Logo.png "Figma-Low-Code plugin")
 
 # Development Guide
 
@@ -132,7 +133,7 @@ The plugin has two main tab. The 'Low Code' tab allows you to set the basics, su
 The 'Style' tab allows you to define, if the element should be fixed width or height. By default Figma Low Code will assume hat the widget is
 responsive. Also, you can define hover styles for the fill, stroke and text color. For input elements focus styles can also be defined.
 
-![The Figma-Low-Code plugin](assets/PluginStyle.png "Figma-Low-Code plugin")
+![The Figma-Low-Code plugin](assets/PluginStyle2.png "Figma-Low-Code plugin")
 
 ### Input Elements
 
