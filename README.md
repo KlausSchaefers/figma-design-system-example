@@ -7,6 +7,8 @@
 
 This repository serves as an example. More information about Fima-Low-Code can be found in [Figma-Low-Code repository](https://github.com/KlausSchaefers/figma-low-code).
 
+You can find an example [here](https://klausschaefers.github.io/figma-design-system-example/)
+
 # Development Guide
 
 First clone this repo or add the `vue-lwo-code` package via NPM.
@@ -74,7 +76,6 @@ and transform it into the designlets. This is ideal for iterative development, w
 the Figma api is sometimes slow, so for production it is best to download the figma file and place it in the project. Downloading the file will improve performance and
 will also ensure your project does not break after changes in the Figma file.
 
-, or you can download the Figma design using the *download.js* script
 
 ```bash
 node download.js <api token> <file id>
@@ -198,6 +199,8 @@ myLoginMethod () {
   // your code
 }
 ```
+
+You can find an example [here](https://klausschaefers.github.io/figma-design-system-example/)
 
 
 # Background: Two ways of using Figma-Low-Code

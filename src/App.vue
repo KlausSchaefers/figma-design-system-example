@@ -5,9 +5,8 @@
 </template>
 
 <style>
-html,
-body,
-.home{
-  min-height: 100%;
+html, body {
+  background: #eee;
+  font-family: 'Roboto', sans-serif;
 }
 </style>
