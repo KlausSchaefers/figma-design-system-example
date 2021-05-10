@@ -49,6 +49,33 @@
       </div>
 
 
+
+
+
+      <div class="example">
+        <div class="visual">
+          <ButtonYellow label="Hello World"/>
+        </div>
+        <div class="code">
+            <code>
+                &lt;ButtonYellow label="Hello World"/&gt;
+            </code>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="visual">
+          <ButtonYellow> Hello World </ButtonYellow>
+        </div>
+        <div class="code">
+            <code>
+                &lt;ButtonYellow&gt;Hello World&lt;/ButtonYellow&gt;
+            </code>
+        </div>
+      </div>
+
+
+
       <div class="example">
         <div class="visual">
           <HeaderBlue> This is a blue header </HeaderBlue>
@@ -62,11 +89,11 @@
 ´
       <div class="example">
         <div class="visual">
-          <HeaderSmallBlue> This is a small blue header </HeaderSmallBlue>
+          <HeaderBlueXS> This is a small blue header </HeaderBlueXS>
         </div>
         <div class="code">
             <code>
-                &lt;HeaderSmallBlue&gt;This is a small blue header&lt;/HeaderSmallBlue&gt;
+                &lt;HeaderBlueXS&gt;This is a small blue header&lt;/HeaderBlueXS&gt;
             </code>
         </div>
       </div>
@@ -264,7 +291,8 @@
   margin: auto;
   background: #fff;
   padding: 24px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0,15);
+  border-radius:3px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
 }
 .example {
   margin-bottom: 80px;
